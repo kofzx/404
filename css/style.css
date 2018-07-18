@@ -6,9 +6,8 @@ html, body {
 }
 /* main-wrapper */
 .main-wrapper {
-	height: 150px;
 	position: absolute;
-	bottom: 150px;
+	bottom: 0;
 	left: 0;
 	right: 0;
 }
@@ -44,4 +43,17 @@ html, body {
 	font-weight: 300;
 	letter-spacing: 2px;
 	border-radius: 50px;
+} 
+@media screen and (max-width: 769px) {
+	.main-wrapper {
+		display: none;
+	}
+}
+@media screen and (max-width: 1280px) {
+	#hGrp {
+		display: none;
+	}
+	.back {
+		margin: 20px auto;
+	}
 }

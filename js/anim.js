@@ -5,10 +5,18 @@ window.requestAnimFrame = (function() {
 		};
 })();
 
+// 判断手机
+var ua = navigator.userAgent;
+var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+isIphone =!ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+isMobile = isIphone || isAndroid;
+
 var canvas = document.createElement('canvas');
 canvas.width = document.documentElement.clientWidth;
 canvas.height = document.documentElement.clientHeight;
-document.body.append(canvas);
+// 适配手机
+if(!isMobile) document.body.append(canvas);
 
 var ctx = canvas.getContext('2d');
 
@@ -61,7 +69,7 @@ function drawBg () {
 }
 
 function draw404 () {
-	ctx.drawImage(fail, canvas.width / 2 - fail.width / 2, canvas.height / 2 - 50, fail.width, fail.height);
+	ctx.drawImage(fail, canvas.width / 2 - fail.width / 2, canvas.height / 2 + 20, fail.width, fail.height);
 }
 
 function Star (x, y, scale) {
@@ -75,7 +83,7 @@ Star.prototype.zoom = function () {
 	var dir = 2;
 	if (this.timer > 70) {
 		if (this.scale <= 20 || this.scale >= 30) {
-			dir = -dir;
+			dir = -1 * dir;
 		}
 		this.scale += dir;
 		this.timer = 0;
