@@ -16,14 +16,29 @@ var stars = [];
 var planes;
 var num;
 var frame;
+var tmpx, tmpy;
 
 var bg, star, plane, fail;
+
+var planeX, planeY, planeW ,pad;
+var rangeStartX, rangeEndX, rangeStartY, rangeEndY;
 
 var lastTime, deltaTime;
 
 function init () {
 	num = 20;
 	frame = 0;
+
+	planeX = canvas.width / 2 - 168;
+	planeY = 82;
+	planeW = 337;
+	planeH = 353;
+	pad = 100;
+
+	rangeStartX = planeX - pad,
+	rangeEndX = planeX + pad,
+	rangeStartY = planeY - pad,
+	rangeEndY = planeY + pad;
 
 	bg = new Image();
 	star = new Image();
@@ -90,6 +105,41 @@ Plane.prototype.draw = function () {
 	ctx.drawImage(plane, this.picNo * this.l, 0, this.l, plane.height, this.x, this.y, this.l, plane.height);
 };
 
+function event () {
+	document.addEventListener('mousemove', mousemoveHandler, false);
+}
+
+function mousemoveHandler (e) {
+	var px = e.pageX;
+	var py = e.pageY;
+
+	if (tmpx - px > 0) {
+		planes.x -= 3;
+	} else {
+		planes.x += 3;
+	}
+	if (tmpy - py > 0) {
+		planes.y -= 1;
+	} else {
+		planes.y += 1;
+	}
+
+	if (planes.x < rangeStartX) {
+		planes.x = rangeStartX;
+	}
+	if (planes.x > rangeEndX) {
+		planes.x = rangeEndX;
+	}
+	if (planes.y > rangeEndY) {
+		planes.y = rangeEndY;
+	}
+	if (planes.y > rangeEndY) {
+		planes.y = rangeEndY;
+	}
+	tmpx = px;
+	tmpy = py;
+}
+
 function update () {
 
 	var now = Date.now();
@@ -108,6 +158,8 @@ window.onload = function () {
 	init();
 	createStars();
 	createPlane();
+
+	event();
 
 	update();
 };

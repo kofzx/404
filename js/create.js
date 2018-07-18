@@ -12,7 +12,7 @@ function drawStars () {
 }
 
 function createPlane () {
-	planes = new Plane(canvas.width / 2 - 168, 82);
+	planes = new Plane(planeX, planeY);
 }
 
 function drawPlane () {
