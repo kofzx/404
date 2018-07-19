@@ -13,10 +13,12 @@ isAndroid = ua.match(/(Android)\s+([\d.]+)/),
 isMobile = isIphone || isAndroid;
 
 var canvas = document.createElement('canvas');
-canvas.width = document.documentElement.clientWidth;
-canvas.height = document.documentElement.clientHeight;
+canvas.width = document.documentElement.clientWidth || document.body.clientWidth;
+canvas.height = document.documentElement.clientHeight || document.body.clientHeight;
 // 适配手机
-if(!isMobile) document.body.append(canvas);
+if(!isMobile) {
+	document.body.appendChild(canvas);
+}
 
 var ctx = canvas.getContext('2d');
 
@@ -82,7 +84,7 @@ Star.prototype.zoom = function () {
 	this.timer += deltaTime;
 	var dir = 2;
 	if (this.timer > 70) {
-		if (this.scale <= 20 || this.scale >= 30) {
+		if (this.scale >= 30) {
 			dir = -1 * dir;
 		}
 		this.scale += dir;
